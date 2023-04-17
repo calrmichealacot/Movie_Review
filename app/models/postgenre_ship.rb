@@ -1,2 +1,0 @@
-class PostgenreShip < ApplicationRecord
-end
