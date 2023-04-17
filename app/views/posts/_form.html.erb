@@ -1,0 +1,38 @@
+
+
+
+<% if @post.errors.any? %>
+  <ul>
+    <% @post.errors.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_with model: @post do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :blurb %>
+    <%= form.text_field :blurb %>
+  </div>
+  <div>
+    <%= form.label :date_released %>
+    <%= form.text_field :date_released %>
+  </div>
+  <div>
+    <%= form.label :country_of_origin %>
+    <%= form.text_field :country_of_origin %>
+  </div>
+  <div>
+    <%= form.label :showing_starts %>
+    <%= form.text_field :showing_starts %>
+  </div>
+  <div>
+    <%= form.label :showing_ends %>
+    <%= form.text_field :showing_ends %>
+  </div>
+  <%= form.submit %>
+<% end %>
+<%= link_to 'Index', posts_path %>
