@@ -1,6 +1,3 @@
-
-
-
 <% if @post.errors.any? %>
   <ul>
     <% @post.errors.each do |error| %>
@@ -19,7 +16,7 @@
   </div>
   <div>
     <%= form.label :date_released %>
-    <%= form.text_field :date_released %>
+    <%= form.date_field :date_released %>
   </div>
   <div>
     <%= form.label :country_of_origin %>
@@ -27,11 +24,14 @@
   </div>
   <div>
     <%= form.label :showing_starts %>
-    <%= form.text_field :showing_starts %>
+    <%= form.date_field :showing_starts %>
   </div>
   <div>
     <%= form.label :showing_ends %>
-    <%= form.text_field :showing_ends %>
+    <%= form.date_field :showing_ends %>
+  </div>
+  <div>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
   </div>
   <%= form.submit %>
 <% end %>
