@@ -3,13 +3,16 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def index
-    @comments = @post.comments
+    @comments = @post.comments.includes(:user)
   end
+
   def new
     @comment = @post.comments.build
   end
+
   def create
     @comment = @post.comments.build(comment_params)
+    @comment.user = current_user
     if @comment.save
       flash[:notice] = 'Comment created successfully'
       redirect_to post_comments_path(@post)
@@ -17,6 +20,7 @@ class CommentsController < ApplicationController
       render :new
     end
   end
+
   def edit; end
 
   def update
@@ -46,6 +50,13 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = @post.comments.find(params[:id])
+  end
+
+  def validate_comment_owner
+    unless @comment.user == current_user
+      flash[:notice] = 'the comment not belongs to you'
+      redirect_to post_comments_path(@post)
+    end
   end
 end
 
