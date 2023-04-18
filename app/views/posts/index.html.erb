@@ -1,8 +1,9 @@
-<h1>POST LIST</h1>
+<h1>MOVIE LIST</h1>
 <table>
   <thead>
   <td>Title</td>
   <td>Blurb</td>
+  <td>category</td>
   <td>Date Released</td>
   <td>Country of Origin</td>
   <td>Showing Start</td>
@@ -12,6 +13,7 @@
     <tr>
       <td><%= post.title %></td>
       <td><%= post.blurb %></td>
+      <td><%= post.categories.pluck(:name).join(',') %></td>
       <td><%= post.date_released %></td>
       <td><%= post.country_of_origin %></td>
       <td><%= post.showing_starts %></td>
