@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   def index
-    @posts = Post.all
+    @posts = Post.includes(:categories).all
   end
 
   def new
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :blurb,:date_released,:country_of_origin,:showing_starts,:showing_ends)
+    params.require(:post).permit(:title, :blurb,:date_released,:country_of_origin,:showing_starts,:showing_ends,category_ids:[])
   end
 end
 
