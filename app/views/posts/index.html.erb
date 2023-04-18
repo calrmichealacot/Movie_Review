@@ -21,10 +21,9 @@
       <td>
         <%= link_to 'Show', post_path(post) %>
         <%= link_to 'Edit', edit_post_path(post) %>
-        <%= button_to 'Delete', post_path(post), method: :delete %>
+        <%= button_to 'Delete', post_path(post), class: 'btn btn-danger',method: :delete %>
         <%= link_to 'Reviews', post_comments_path(post) %>
         <%= link_to 'New Review', new_post_comment_path(post) %>
-        <%= button_to 'Delete', post_path(post),class: 'btn btn-danger', method: :delete%>
       </td>
 
     </tr>
