@@ -1,6 +1,7 @@
 <h1>MOVIE LIST</h1>
 <table>
   <thead>
+  <td>user</td>
   <td>Title</td>
   <td>Blurb</td>
   <td>category</td>
@@ -13,6 +14,7 @@
     <tr>
       <td><%= post.title %></td>
       <td><%= post.blurb %></td>
+      <td><%= post.user&.email %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
       <td><%= post.date_released %></td>
       <td><%= post.country_of_origin %></td>
@@ -20,8 +22,8 @@
       <td><%= post.showing_ends %></td>
       <td>
         <%= link_to 'Show', post_path(post) %>
-        <%= link_to 'Edit', edit_post_path(post) %>
-        <%= button_to 'Delete', post_path(post), class: 'btn btn-danger',method: :delete %>
+        <%= link_to 'Edit', edit_post_path(post) if user_signed_in? && post.user == current_user %>
+        <%= button_to 'Delete', post_path(post), method: :delete if user_signed_in? && post.user == current_user %>
         <%= link_to 'Reviews', post_comments_path(post) %>
         <%= link_to 'New Review', new_post_comment_path(post) %>
       </td>

@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :validate_post_owner, only: [:edit, :update, :destroy]
+
   def index
-    @posts = Post.includes(:categories).all
+    @posts = Post.includes(:categories, :user).all
   end
 
   def new
@@ -10,6 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
     if @post.save
       flash[:notice] = 'Post created successfully'
       redirect_to posts_path
@@ -18,6 +22,7 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
   def edit; end
 
   def show; end
@@ -37,6 +42,7 @@ class PostsController < ApplicationController
     flash[:notice] = 'Post destroyed successfully'
     redirect_to posts_path
   end
+
   private
 
   def set_post
@@ -44,7 +50,14 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :blurb,:date_released,:country_of_origin,:showing_starts,:showing_ends,category_ids:[])
+    params.require(:post).permit(:title, :blurb, :date_released, :country_of_origin, :showing_starts, :showing_ends, category_ids: [])
+  end
+
+  def validate_post_owner
+    unless @post.user == current_user
+      flash[:notice] = 'the post not belongs to you'
+      redirect_to posts_path
+    end
   end
 end
 
