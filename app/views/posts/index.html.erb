@@ -1,7 +1,10 @@
+<%= current_user.email %>
+<%= link_to 'Sign out', destroy_user_session_path, data: { 'turbo-method': :delete } %>
 <h1>MOVIE LIST</h1>
 <table>
   <thead>
   <td>User</td>
+  <td>MOVIE</td>
   <td>Title</td>
   <td>Blurb</td>
   <td>Genre</td>
@@ -9,11 +12,11 @@
   <td>Country of Origin</td>
   <td>Showing Start</td>
   <td>Showing Ends</td>
-  <td>MOVIE</td>
   </thead>
   <% @posts.each do |post| %>
     <tr>
       <td><%= post.user&.email %></td>
+      <td><%= image_tag post.image.url if post.image.present? %></td>
       <td><%= post.title %></td>
       <td><%= post.blurb %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
@@ -21,7 +24,7 @@
       <td><%= post.country_of_origin %></td>
       <td><%= post.showing_starts %></td>
       <td><%= post.showing_ends %></td>
-      <td><%= image_tag post.image.url if post.image.present? %></td>
+
       <td>
         <%= link_to 'Show', post_path(post) %>
         <%= link_to 'Edit', edit_post_path(post) if user_signed_in? && post.user == current_user %>
