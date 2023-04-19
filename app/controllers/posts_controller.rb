@@ -50,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :blurb, :date_released, :country_of_origin, :showing_starts, :showing_ends, category_ids: [])
+    params.require(:post).permit(:title, :blurb, :date_released, :country_of_origin, :showing_starts, :showing_ends,:image, category_ids: [])
   end
 
   def validate_post_owner

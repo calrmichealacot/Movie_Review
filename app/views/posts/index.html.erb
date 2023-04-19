@@ -1,21 +1,21 @@
 <h1>MOVIE LIST</h1>
 <table>
   <thead>
-  <td>user</td>
+  <td>User</td>
   <td>Title</td>
   <td>Blurb</td>
-  <td>category</td>
+  <td>Genre</td>
   <td>Date Released</td>
   <td>Country of Origin</td>
   <td>Showing Start</td>
   <td>Showing Ends</td>
-  <td>image</td>
+  <td>MOVIE</td>
   </thead>
   <% @posts.each do |post| %>
     <tr>
+      <td><%= post.user&.email %></td>
       <td><%= post.title %></td>
       <td><%= post.blurb %></td>
-      <td><%= post.user&.email %></td>
       <td><%= post.categories.pluck(:name).join(',') %></td>
       <td><%= post.date_released %></td>
       <td><%= post.country_of_origin %></td>

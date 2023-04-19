@@ -7,5 +7,6 @@
   <li><%= @post.showing_starts %></li>
   <li><%= @post.showing_ends %></li>
   <li><%= @post.user&.email %></li>
+  <td><%= image_tag @post.image.url if @post.image.present? %></td>
 </ul>
 <%= link_to 'Index', posts_path %>
