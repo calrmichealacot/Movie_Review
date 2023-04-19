@@ -4,9 +4,13 @@ class PostsController < ApplicationController
   before_action :validate_post_owner, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories, :user).page(params[:page]).per(5)
+    @posts = Post.includes(:categories, :user, :region, :province).page(params[:page]).per(5)
   end
 
+  def info
+    @post = Post.new
+    redirect_to info_path
+  end
   def new
     @post = Post.new
   end
@@ -50,7 +54,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :blurb, :date_released, :country_of_origin, :showing_starts, :showing_ends,:image, category_ids: [])
+    params.require(:post).permit(:title, :blurb, :date_released, :country_of_origin, :showing_starts, :showing_ends,:image,:address_region_id, :address_province_id,  category_ids: [])
   end
 
   def validate_post_owner
