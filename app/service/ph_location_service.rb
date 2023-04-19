@@ -5,7 +5,7 @@ class PhLocationService
     @url = 'https://psgc.gitlab.io/api'
   end
 
-  def fetch_region
+  def fetch_regions
     request = RestClient.get("#{url}/regions/")
     data = JSON.parse(request.body)
     data.each do |region|
@@ -15,7 +15,7 @@ class PhLocationService
     end
   end
 
-  def fetch_province
+  def fetch_provinces
     request = RestClient.get("#{url}/provinces/")
     data = JSON.parse(request.body)
     data.each do |province|
