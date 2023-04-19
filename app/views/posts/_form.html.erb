@@ -31,6 +31,9 @@
     <%= form.date_field :showing_ends %>
   </div>
   <div>
+    <%= form.file_field :image %>
+  </div>
+  <div>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
   </div>
   <%= form.submit %>
